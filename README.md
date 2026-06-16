@@ -1,19 +1,50 @@
 # Manhwa Translator
 
-Браузерное расширение для Opera GX. Переводит текст манхвы с китайского, корейского и японского языков.
+Расширение для браузеров. Переводит текст манхвы с китайского, корейского и японского. Работает на OCR в браузере — никаких серверов.
+
+## Совместимость
+
+| Браузер | Поддержка |
+|---|---|
+| Google Chrome | ✅ |
+| Opera GX / Opera | ✅ |
+| Microsoft Edge | ✅ |
+| Brave | ✅ |
+| Vivaldi | ✅ |
+| Yandex Browser | ✅ |
+| Firefox | ⚠️ частичная (Manifest V3) |
+
+Расширение использует Manifest V3. Все Chromium-браузеры работают без изменений.
 
 ## Установка
 
-1. Открой `opera://extensions`
-2. Включи «Режим разработчика»
-3. Нажми «Загрузить распакованное расширение»
+### Chrome / Edge / Brave / Vivaldi / Yandex
+
+1. Открой `chrome://extensions` (или `edge://extensions` и т.д.)
+2. Включи **«Режим разработчика»** (Developer mode) в правом верхнем углу
+3. Нажми **«Загрузить распакованное расширение»** (Load unpacked)
 4. Выбери папку `manhwa-translator`
+
+### Opera GX / Opera
+
+1. Открой `opera://extensions`
+2. Включи **«Режим разработчика»** в правом верхнем углу
+3. Нажми **«Загрузить распакованное расширение»**
+4. Выбери папку `manhwa-translator`
+
+### Firefox
+
+1. Открой `about:debugging#/runtime/this-firefox`
+2. Нажми **«Загрузить временный дополнитель»** (Load Temporary Add-on)
+3. Выбери файл `manifest.json` внутри папки `manhwa-translator`
+
+> Firefox: расширение будет удалено после закрытия браузера. Для постоянной установки нужно публиковать в Firefox Add-ons.
 
 ## Возможности
 
 - Перевод текста при наведении
-- OCR (распознавание текста на картинках) через Tesseract.js
-- Выделение области для OCR (Ctrl+Shift+R)
+- OCR на картинках (Tesseract.js, работает офлайн)
+- Выделение области для OCR
 - Пиньинь для китайского
 - Романизация для корейского
 - Кэширование переводов
@@ -40,13 +71,6 @@
 
 **Закрепление:** клик по тултипу — он останется на экране.
 
-## Технологии
-
-- Tesseract.js — OCR в браузере
-- Google Translate API (бесплатный эндпоинт)
-- MyMemory API (fallback)
-- Chrome Extension Manifest V3
-
 ## Структура
 
 ```
@@ -54,15 +78,17 @@ manhwa-translator/
 ├── manifest.json
 ├── background.js
 ├── content.js
-├── popup.html / popup.js / popup.css
-├── styles.css
+├── popup.html
+├── popup.js
+├── popup.css
 ├── lib/
 │   └── tesseract.min.js
 ├── icons/
 │   ├── icon16.png
 │   ├── icon48.png
 │   └── icon128.png
-└── LICENSE
+├── LICENSE
+└── README.md
 ```
 
 ## Лицензия
@@ -73,20 +99,51 @@ MIT
 
 # Manhwa Translator
 
-Browser extension for Opera GX. Translates manhwa text from Chinese, Korean, and Japanese.
+Browser extension. Translates manhwa text from Chinese, Korean, and Japanese. Uses in-browser OCR — no servers involved.
+
+## Compatibility
+
+| Browser | Support |
+|---|---|
+| Google Chrome | ✅ |
+| Opera GX / Opera | ✅ |
+| Microsoft Edge | ✅ |
+| Brave | ✅ |
+| Vivaldi | ✅ |
+| Yandex Browser | ✅ |
+| Firefox | ⚠️ partial (Manifest V3) |
+
+Uses Manifest V3. Works on all Chromium-based browsers without changes.
 
 ## Installation
 
-1. Open `opera://extensions`
-2. Enable "Developer mode"
-3. Click "Load unpacked"
+### Chrome / Edge / Brave / Vivaldi / Yandex
+
+1. Open `chrome://extensions` (or `edge://extensions`, etc.)
+2. Enable **Developer mode** in the top right
+3. Click **Load unpacked**
 4. Select the `manhwa-translator` folder
+
+### Opera GX / Opera
+
+1. Open `opera://extensions`
+2. Enable **Developer mode** in the top right
+3. Click **Load unpacked**
+4. Select the `manhwa-translator` folder
+
+### Firefox
+
+1. Open `about:debugging#/runtime/this-firefox`
+2. Click **Load Temporary Add-on**
+3. Select the `manifest.json` file inside the `manhwa-translator` folder
+
+> Firefox: the extension is removed after closing the browser. For permanent install it needs to be published to Firefox Add-ons.
 
 ## Features
 
 - Text translation on hover
-- OCR (text recognition from images) via Tesseract.js
-- Region selection for OCR (Ctrl+Shift+R)
+- OCR on images (Tesseract.js, works offline)
+- Region selection for OCR
 - Pinyin for Chinese
 - Romanization for Korean
 - Translation caching
@@ -113,13 +170,6 @@ Browser extension for Opera GX. Translates manhwa text from Chinese, Korean, and
 
 **Pin:** click the tooltip — it will stay on screen.
 
-## Tech stack
-
-- Tesseract.js — in-browser OCR
-- Google Translate API (free endpoint)
-- MyMemory API (fallback)
-- Chrome Extension Manifest V3
-
 ## Structure
 
 ```
@@ -127,15 +177,17 @@ manhwa-translator/
 ├── manifest.json
 ├── background.js
 ├── content.js
-├── popup.html / popup.js / popup.css
-├── styles.css
+├── popup.html
+├── popup.js
+├── popup.css
 ├── lib/
 │   └── tesseract.min.js
 ├── icons/
 │   ├── icon16.png
 │   ├── icon48.png
 │   └── icon128.png
-└── LICENSE
+├── LICENSE
+└── README.md
 ```
 
 ## License
