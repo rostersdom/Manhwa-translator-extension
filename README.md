@@ -1,0 +1,1 @@
+# Manhwa-translator-extension
