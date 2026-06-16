@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manhwa Translator</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-glow"></div>
+      <div class="header-content">
+        <div class="logo-row">
+          <div class="logo">
+            <img src="icons/icon48.png" alt="Logo" width="36" height="36">
+            <div class="logo-pulse"></div>
+          </div>
+          <div class="title-block">
+            <h1>Manhwa Translator</h1>
+            <span class="version">v2.6.0</span>
+          </div>
+        </div>
+        <div class="status-bar">
+          <div class="status-dot" id="statusDot"></div>
+          <span class="status-text" id="statusText">Активен</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs">
+      <button class="tab active" data-tab="settings">⚙️ Настройки</button>
+      <button class="tab" data-tab="history">📜 История</button>
+      <button class="tab" data-tab="help">❓ Справка</button>
+    </nav>
+
+    <!-- Settings Tab -->
+    <div class="tab-content active" id="tab-settings">
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <button class="qa-btn" id="btnToggle" title="Вкл/Выкл перевод">
+          <span class="qa-icon" id="qaToggleIcon">🟢</span>
+          <span class="qa-label">Перевод</span>
+        </button>
+        <button class="qa-btn" id="btnRegion" title="Выделить область (Ctrl+Shift+R)">
+          <span class="qa-icon">📷</span>
+          <span class="qa-label">Область</span>
+        </button>
+        <button class="qa-btn" id="btnExport" title="Экспорт текущего перевода">
+          <span class="qa-icon">💾</span>
+          <span class="qa-label">Экспорт</span>
+        </button>
+      </div>
+
+      <!-- Language Selector -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-icon">🌐</span>
+          <span class="section-title">Язык перевода</span>
+        </div>
+        <div class="lang-selector">
+          <select id="targetLanguage">
+            <option value="ru">🇷🇺 Русский</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="uk">🇺🇦 Українська</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="pt">🇧🇷 Português</option>
+            <option value="zh">🇨🇳 中文</option>
+            <option value="ja">🇯🇵 日本語</option>
+            <option value="ko">🇰🇷 한국어</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- OCR Settings -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-icon">📷</span>
+          <span class="section-title">OCR (распознавание)</span>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <span class="toggle-label">Подсветка при наведении</span>
+            <span class="toggle-desc">Красная рамка вокруг элемента</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggleHighlight" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <span class="toggle-label">Закрепление (двойной клик)</span>
+            <span class="toggle-desc">Тултип остаётся после ухода мыши</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="togglePin" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Display Settings -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-icon">👁</span>
+          <span class="section-title">Отображение</span>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <span class="toggle-label">Показывать оригинал</span>
+            <span class="toggle-desc">Исходный текст в тултипе</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggleOriginal" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <span class="toggle-label">Пиньинь (китайский)</span>
+            <span class="toggle-desc">Произношение иероглифов</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="togglePinyin" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <span class="toggle-label">Романизация (корейский)</span>
+            <span class="toggle-desc">Латиница для корейского</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggleRomanization" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <span class="toggle-label">Кэширование</span>
+            <span class="toggle-desc">Сохранять переводы для быстрого доступа</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggleCache" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-icon">⚡</span>
+          <span class="section-title">Действия</span>
+        </div>
+        <div class="action-grid">
+          <button class="action-btn" id="btnExportHistory">
+            <span class="action-icon">📤</span>
+            <span class="action-text">Экспорт истории</span>
+          </button>
+          <button class="action-btn danger" id="btnClearHistory">
+            <span class="action-icon">🗑️</span>
+            <span class="action-text">Очистить историю</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Tab -->
+    <div class="tab-content" id="tab-history">
+      <div class="history-stats" id="historyStats">
+        <div class="stat">
+          <span class="stat-value" id="statTotal">0</span>
+          <span class="stat-label">Всего переводов</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="statToday">0</span>
+          <span class="stat-label">Сегодня</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="statLangs">0</span>
+          <span class="stat-label">Языков</span>
+        </div>
+      </div>
+      <div class="history-list" id="historyList">
+        <div class="empty-state">
+          <span class="empty-icon">📜</span>
+          <span class="empty-text">История пуста</span>
+          <span class="empty-hint">Наведите на текст или картинку</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Help Tab -->
+    <div class="tab-content" id="tab-help">
+      <div class="help-section">
+        <h3>⌨️ Горячие клавиши</h3>
+        <div class="shortcuts">
+          <div class="shortcut">
+            <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>T</kbd>
+            <span>Вкл/Выкл перевод</span>
+          </div>
+          <div class="shortcut">
+            <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>H</kbd>
+            <span>Вкл/Выкл наведение</span>
+          </div>
+          <div class="shortcut">
+            <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>R</kbd>
+            <span>Выделить область OCR</span>
+          </div>
+          <div class="shortcut">
+            <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>E</kbd>
+            <span>Экспорт перевода</span>
+          </div>
+          <div class="shortcut">
+            <kbd>Esc</kbd>
+            <span>Закрыть перевод</span>
+          </div>
+        </div>
+      </div>
+      <div class="help-section">
+        <h3>🖱 Как пользоваться</h3>
+        <div class="tips">
+          <div class="tip">
+            <span class="tip-icon">📝</span>
+            <span>Наведите на <strong>текст</strong> — мгновенный перевод</span>
+          </div>
+          <div class="tip">
+            <span class="tip-icon">📷</span>
+            <span>Наведите на <strong>картинку</strong> — OCR + перевод</span>
+          </div>
+          <div class="tip">
+            <span class="tip-icon">📌</span>
+            <span>Клик по тултипу — <strong>закрепить</strong></span>
+          </div>
+          <div class="tip">
+            <span class="tip-icon">📋</span>
+            <span>Кнопка 📋 — <strong>копировать</strong> перевод</span>
+          </div>
+          <div class="tip">
+            <span class="tip-icon">🔊</span>
+            <span>Кнопка 🔊 — <strong>прослушать</strong> оригинальное произношение</span>
+          </div>
+        </div>
+      </div>
+      <div class="help-section">
+        <h3>🌐 Поддерживаемые языки</h3>
+        <div class="lang-chips">
+          <span class="lang-chip">🇨🇳 Китайский</span>
+          <span class="lang-chip">🇰🇷 Корейский</span>
+          <span class="lang-chip">🇯🇵 Японский</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span class="footer-text">Tesseract.js OCR · Google Translate</span>
+      <span class="footer-dot">·</span>
+      <span class="footer-text" id="cacheSize">Кэш: 0</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
